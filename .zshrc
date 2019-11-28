@@ -115,3 +115,28 @@ zstyle "completion:*" use-cache true
 zstyle "completion:*" list-separator "==>"
 
 alias vi="vim"
+
+
+if [[ ! -n $TMUX && $- == *l* ]]; then
+  # get the IDs
+  ID="`tmux list-sessions`"
+  if [[ -z "$ID" ]]; then
+    tmux new-session
+  fi
+  create_new_session="Create New Session"
+  ID="$ID\n${create_new_session}:"
+  ID="`echo $ID | $PERCOL | cut -d: -f1`"
+  if [[ "$ID" = "${create_new_session}" ]]; then
+    tmux new-session
+  elif [[ -n "$ID" ]]; then
+    tmux attach-session -t "$ID"
+  else
+    :  # Start terminal normally
+  fi
+fi
+
+export PATH=$PATH:/Users/JP26493/Library/Android/sdk/platform-tools
+export JAVA_HOME="/Applications/Android Studio.app/Contents/jre/jdk/Contents/Home"  
+export PATH=$PATH:/Users/JP26493/dotfiles/
+export ANDROID_HOME=/Users/JP26493/Library/Android/sdk/  
+export LANG=ja_JP.UTF-8

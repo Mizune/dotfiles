@@ -1,12 +1,17 @@
-sudo apt-get update -y
-suod apt-get upgrade -y
-sudo apt-get install -y zsh vim 
-chsh chsh -s /usr/bin/zsh
+#!/bin/sh
+/usr/bin/ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
 
-chmod 775 ~/dotfiles/setup.sh
-~/dotfiles/set_dotfiles.sh
+brew install zsh vim tmux
+brew cask install alacritty
 
-source ~/dotfiles/.vimrc
-source ~/dotfiles/.gvimrc
-source ~/dotfiles/.zshrc
+sudo echo "/usr/local/bin/zsh" >> "/etc/shells"
+
+sudo chsh -s /usr/local/bin/zsh
+
+chmod 755 ./set_dotfiles.sh
+./set_dotfiles.sh
+
+source ~/.zshrc
+source ~/.vimrc
+source ~/.gvimrc
 
