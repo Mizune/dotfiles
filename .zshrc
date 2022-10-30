@@ -135,8 +135,8 @@ if [[ ! -n $TMUX && $- == *l* ]]; then
   fi
 fi
 
-export PATH=$PATH:/Users/JP26493/Library/Android/sdk/platform-tools
+export PATH=$PATH:/Users/$(whoami)/Library/Android/sdk/platform-tools
 export JAVA_HOME="/Applications/Android Studio.app/Contents/jre/jdk/Contents/Home"  
-export PATH=$PATH:/Users/JP26493/dotfiles/
-export ANDROID_HOME=/Users/JP26493/Library/Android/sdk/  
+export PATH=$PATH:/Users/$(whoami)/dotfiles/
+export ANDROID_HOME=/Users/$(whoami)/Library/Android/sdk/  
 export LANG=ja_JP.UTF-8
