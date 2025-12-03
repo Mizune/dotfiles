@@ -265,6 +265,7 @@ CASKS=(
     jetbrains-toolbox
     rancher
     slack
+    warp
     visual-studio-code
     xbar
     zed
