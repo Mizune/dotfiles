@@ -20,8 +20,8 @@ autoload -U compinit
 compinit
 
 #補完に関するオプション
-setopt auto_param_slash      # ディレクトリ�完で末尾の / を自動的に付加し、次の補完に備える
-setopt mark_dirs             # ファイル�尾に / を付加
+setopt auto_param_slash      # ディレクトリ�完で末尾の / を自動的に付加し、次の補完に備える
+setopt mark_dirs             # ファイル�尾に / を付加
 setopt list_types            # 補完候補一覧でファイルの種別を識別マーク表示 (訳注:ls -F の記号)
 setopt auto_menu             # 補完キー連打で順に補完候補を自動で補完
 setopt auto_param_keys       # カッコの対応などを自動的に補完
@@ -29,7 +29,7 @@ setopt interactive_comments  # コマンドラインでも # 以降をコメン�
 setopt magic_equal_subst     # コマンドラインの引数で --prefix=/usr などの = 以降でも補完できる
 
 setopt complete_in_word      # 語の途中でもカーソル位置で補完
-setopt always_last_prompt    # カーソル位置は保持したままファイル�語ファイル�完(~とか^とか。例えばless *.txt~memo.txt ならmemo.txt 以外の *.txt にマッチ)
+setopt always_last_prompt    # カーソル位置は保持したままファイル�語ファイル�完(~とか^とか。例えばless *.txt~memo.txt ならmemo.txt 以外の *.txt にマッチ)
 setopt globdots              # 明確なドットの指定なしで.から始まるファイルをマッチ
 
 setopt list_packed           # リストを詰めて表示
@@ -140,3 +140,29 @@ export JAVA_HOME="/Applications/Android Studio.app/Contents/jre/jdk/Contents/Hom
 export PATH=$PATH:/Users/$(whoami)/dotfiles/
 export ANDROID_HOME=/Users/$(whoami)/Library/Android/sdk/  
 export LANG=ja_JP.UTF-8
+export PATH=$HOME/.nodebrew/current/bin:$PATH
+export PATH=/Library/Java/JavaVirtualMachines/graalvm-ce-java17-22.3.2/Contents/Home/bin:$PATH
+export JAVA_HOME=/Library/Java/JavaVirtualMachines/graalvm-ce-java17-22.3.2/Contents/Home
+
+
+# Load Angular CLI autocompletion.
+source <(ng completion script)
+export PYENV_ROOT="$HOME/.pyenv"
+export PATH="$PYENV_ROOT/bin:$PATH"
+eval "$(pyenv init -)"
+
+source "$(brew --prefix)/share/google-cloud-sdk/path.zsh.inc"
+source "$(brew --prefix)/share/google-cloud-sdk/completion.zsh.inc"
+
+export NVM_DIR="$HOME/.nvm"
+[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
+[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
+
+### MANAGED BY RANCHER DESKTOP START (DO NOT EDIT)
+export PATH="/Users/m1zyuk1/.rd/bin:$PATH"
+### MANAGED BY RANCHER DESKTOP END (DO NOT EDIT)
+
+. "$HOME/.local/bin/env"
+
+# Added by Antigravity
+export PATH="/Users/m1zyuk1/.antigravity/antigravity/bin:$PATH"
