@@ -38,7 +38,7 @@ if [ -d "$DOTFILES_DIR" ]; then
     if [[ "$update_repo" == "y" ]]; then
         echo "Updating dotfiles repository..."
         cd "$DOTFILES_DIR"
-        git pull origin main || git pull origin master
+        git pull origin master
         echo "✓ Repository updated"
     fi
 else

@@ -7,7 +7,7 @@ Personal macOS development environment configuration and setup automation.
 Set up your entire macOS development environment with one command:
 
 ```bash
-bash -c "$(curl -fsSL https://raw.githubusercontent.com/Mizune/dotfiles/main/install.sh)"
+bash -c "$(curl -fsSL https://raw.githubusercontent.com/Mizune/dotfiles/master/install.sh)"
 ```
 
 This will:
