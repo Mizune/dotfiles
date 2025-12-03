@@ -114,10 +114,53 @@ RPROMPT+="]%k"
 zstyle "completion:*" use-cache true
 zstyle "completion:*" list-separator "==>"
 
+# Warp Terminal integration: enable its shell helpers when available and show extra context.
+if [[ "$TERM_PROGRAM" == "WarpTerminal" ]]; then
+    for _warp_script in \
+        "$HOME/.warp/shell/init.zsh" \
+        "/Applications/Warp.app/Contents/Resources/shell-integrations/zsh/warp.zsh" \
+        "/Applications/Warp.app/Contents/Resources/config/zsh/warp.zsh"
+    do
+        [[ -f "$_warp_script" ]] && source "$_warp_script" && break
+    done
+    unset _warp_script
+
+    typeset -gF _warp_cmd_start=0
+    function _warp_preexec() {
+        _warp_cmd_start=$EPOCHREALTIME
+    }
+    function _warp_precmd() {
+        local last_status=$?
+        local duration=""
+        if (( _warp_cmd_start > 0 )); then
+            local elapsed=$(( EPOCHREALTIME - _warp_cmd_start ))
+            duration=$(printf "%.2fs" "$elapsed")
+        fi
+        _warp_cmd_start=0
+
+        local status_seg=""
+        (( last_status != 0 )) && status_seg="$RED!${last_status}$DEFAULT "
+
+        local duration_seg=""
+        [[ -n "$duration" ]] && duration_seg="$YELLOW${duration}$DEFAULT "
+
+        local vcs_seg=""
+        [[ -n "$vcs_info_msg_0_" ]] && vcs_seg="$BLUE${vcs_info_msg_0_}$DEFAULT "
+
+        local dir_seg="$CYAN%~$DEFAULT"
+        local time_seg="$GREEN%*$DEFAULT"
+
+        PROMPT="$time_seg $dir_seg\n$status_seg$duration_seg$RED%#$DEFAULT "
+        RPROMPT="$vcs_seg"
+    }
+    add-zsh-hook preexec _warp_preexec
+    add-zsh-hook precmd _warp_precmd
+fi
+
 alias vi="vim"
 
 
-if [[ ! -n $TMUX && $- == *l* ]]; then
+if [[ -z "$TMUX" && $- == *l* && "$TERM_PROGRAM" != "WarpTerminal" ]]; then
   # get the IDs
   ID="`tmux list-sessions`"
   if [[ -z "$ID" ]]; then
@@ -145,8 +188,10 @@ export PATH=/Library/Java/JavaVirtualMachines/graalvm-ce-java17-22.3.2/Contents/
 export JAVA_HOME=/Library/Java/JavaVirtualMachines/graalvm-ce-java17-22.3.2/Contents/Home
 
 
-# Load Angular CLI autocompletion.
-source <(ng completion script)
+# Load Angular CLI autocompletion if available.
+if command -v ng >/dev/null 2>&1; then
+    source <(ng completion script)
+fi
 export PYENV_ROOT="$HOME/.pyenv"
 export PATH="$PYENV_ROOT/bin:$PATH"
 eval "$(pyenv init -)"
@@ -162,7 +207,10 @@ export NVM_DIR="$HOME/.nvm"
 export PATH="/Users/m1zyuk1/.rd/bin:$PATH"
 ### MANAGED BY RANCHER DESKTOP END (DO NOT EDIT)
 
-. "$HOME/.local/bin/env"
+[[ -s "$HOME/.local/bin/env" ]] && . "$HOME/.local/bin/env"
+
+# Added by Antigravity
+export PATH="/Users/m1zyuk1/.antigravity/antigravity/bin:$PATH"
 
 # Added by Antigravity
 export PATH="/Users/m1zyuk1/.antigravity/antigravity/bin:$PATH"
