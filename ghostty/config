@@ -2,7 +2,7 @@
 # ドロップダウンターミナル向け設定
 
 # フォント（Nerd Font）
-font-family = "JetBrainsMono Nerd Font Mono"
+font-family = "Hack Nerd Font Mono"
 font-size = 14
 
 # ウィンドウ装飾を最小化
