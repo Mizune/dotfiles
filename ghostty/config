@@ -1,0 +1,57 @@
+# Ghostty Configuration
+# ドロップダウンターミナル向け設定
+
+# フォント（Nerd Font）
+font-family = "JetBrainsMono Nerd Font Mono"
+font-size = 14
+
+# ウィンドウ装飾を最小化
+window-decoration = false
+
+# 背景の透過（半透明）
+background-opacity = 0.85
+
+# パディング
+window-padding-x = 10
+window-padding-y = 10
+
+# =============================================================================
+# Vim風キーバインド（ペイン操作）
+# =============================================================================
+
+# フォーカス移動: Cmd+Option + h/j/k/l
+keybind = cmd+alt+h=goto_split:left
+keybind = cmd+alt+j=goto_split:bottom
+keybind = cmd+alt+k=goto_split:top
+keybind = cmd+alt+l=goto_split:right
+
+# 新規分割: Cmd+Shift + h/j/k/l
+keybind = cmd+shift+h=new_split:left
+keybind = cmd+shift+j=new_split:down
+keybind = cmd+shift+k=new_split:up
+keybind = cmd+shift+l=new_split:right
+
+# ペインサイズ調整: Ctrl+Shift + h/j/k/l
+keybind = ctrl+shift+h=resize_split:left,20
+keybind = ctrl+shift+j=resize_split:down,20
+keybind = ctrl+shift+k=resize_split:up,20
+keybind = ctrl+shift+l=resize_split:right,20
+
+# ペインを均等化
+keybind = cmd+shift+e=equalize_splits
+
+# =============================================================================
+# タブ設定
+# =============================================================================
+
+# タブの表示位置（top, bottom, left, right, hidden）
+# window-decoration=falseの場合はタブバーが表示されないため、タブ操作はキーバインドで行う
+
+# タブ切り替え: Cmd + 数字
+# （デフォルトで有効）
+
+# タブ一覧表示: Cmd+Shift+\
+# （デフォルトで有効）
+
+# タブタイトルを変更
+keybind = cmd+r=prompt_surface_title

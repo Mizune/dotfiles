@@ -68,93 +68,15 @@ alias -s py=python
 
 
 # -------------------------------------
-# prompt settings
+# prompt settings (Starship)
 # -------------------------------------
-
-autoload -Uz add-zsh-hook
-# autoload -U promptinit; promptinit
-autoload -Uz vcs_info
-autoload -Uz is-at-least
-
-# begin VCS
-zstyle ":vcs_info:*" enable git svn hg bzr
-zstyle ":vcs_info:*" formats "(%s)-[%b]"
-zstyle ":vcs_info:*" actionformats "(%s)-[%b|%a]"
-zstyle ":vcs_info:(svn|bzr):*" branchformat "%b:r%r"
-zstyle ":vcs_info:bzr:*" use-simple true
-
-zstyle ":vcs_info:*" max-exports 6
-
-if is-at-least 4.3.10; then
-    zstyle ":vcs_info:git:*" check-for-changes true # commitしていないのをチェック
-    zstyle ":vcs_info:git:*" stagedstr "<S>"
-    zstyle ":vcs_info:git:*" unstagedstr "<U>"
-    zstyle ":vcs_info:git:*" formats "(%b) %c%u"
-    zstyle ":vcs_info:git:*" actionformats "(%s)-[%b|%a] %c%u"
-fi
-
-# end VCS
-
-# PROMPT="$GREEN%m$DEFAULT:$CYAN%n$DEFAULT%% "
-PROMPT="["
-PROMPT+="$GREEN%W %*$DEFAULT $CYAN%n@%M$DEFAULT"
-PROMPT+="]$RED%#$DEFAULT "
-function _update_vcs_info_msg() {
-    psvar=()
-    LANG=en_US.UTF-8 vcs_info
-    [[ -n "$vcs_info_msg_0_" ]] && psvar[1]="$vcs_info_msg_0_"
-}
-
-RPROMPT="%K{green}[%k"
-RPROMPT+="$BLUE%~%f$DEFAULT"
-add-zsh-hook precmd _update_vcs_info_msg
-RPROMPT+="%1(v|%F{green}%1v%f|)"
-RPROMPT+="]%k"
 
 zstyle "completion:*" use-cache true
 zstyle "completion:*" list-separator "==>"
 
-# Warp Terminal integration: enable its shell helpers when available and show extra context.
-if [[ "$TERM_PROGRAM" == "WarpTerminal" ]]; then
-    for _warp_script in \
-        "$HOME/.warp/shell/init.zsh" \
-        "/Applications/Warp.app/Contents/Resources/shell-integrations/zsh/warp.zsh" \
-        "/Applications/Warp.app/Contents/Resources/config/zsh/warp.zsh"
-    do
-        [[ -f "$_warp_script" ]] && source "$_warp_script" && break
-    done
-    unset _warp_script
-
-    typeset -gF _warp_cmd_start=0
-    function _warp_preexec() {
-        _warp_cmd_start=$EPOCHREALTIME
-    }
-    function _warp_precmd() {
-        local last_status=$?
-        local duration=""
-        if (( _warp_cmd_start > 0 )); then
-            local elapsed=$(( EPOCHREALTIME - _warp_cmd_start ))
-            duration=$(printf "%.2fs" "$elapsed")
-        fi
-        _warp_cmd_start=0
-
-        local status_seg=""
-        (( last_status != 0 )) && status_seg="$RED!${last_status}$DEFAULT "
-
-        local duration_seg=""
-        [[ -n "$duration" ]] && duration_seg="$YELLOW${duration}$DEFAULT "
-
-        local vcs_seg=""
-        [[ -n "$vcs_info_msg_0_" ]] && vcs_seg="$BLUE${vcs_info_msg_0_}$DEFAULT "
-
-        local dir_seg="$CYAN%~$DEFAULT"
-        local time_seg="$GREEN%*$DEFAULT"
-
-        PROMPT="$time_seg $dir_seg\n$status_seg$duration_seg$RED%#$DEFAULT "
-        RPROMPT="$vcs_seg"
-    }
-    add-zsh-hook preexec _warp_preexec
-    add-zsh-hook precmd _warp_precmd
+# Starshipを使用（Warp Terminal以外）
+if [[ "$TERM_PROGRAM" != "WarpTerminal" ]]; then
+    eval "$(starship init zsh)"
 fi
 
 alias vi="vim"
@@ -214,3 +136,9 @@ export PATH="/Users/m1zyuk1/.antigravity/antigravity/bin:$PATH"
 
 # Added by Antigravity
 export PATH="/Users/m1zyuk1/.antigravity/antigravity/bin:$PATH"
+
+#THIS MUST BE AT THE END OF THE FILE FOR SDKMAN TO WORK!!!
+export SDKMAN_DIR="$HOME/.sdkman"
+[[ -s "$HOME/.sdkman/bin/sdkman-init.sh" ]] && source "$HOME/.sdkman/bin/sdkman-init.sh"
+
+export PATH="/Users/m1zyuk1/Projects/name/.gopath/bin:$PATH"

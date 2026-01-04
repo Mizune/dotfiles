@@ -210,6 +210,7 @@ FORMULAE=(
     speex
     sqlite
     srt
+    starship
     stripe
     svt-av1
     tesseract
@@ -257,11 +258,15 @@ CASKS=(
     codex
     dbeaver-community
     discord
+    font-hack-nerd-font
+    font-jetbrains-mono-nerd-font
     fork
     gcloud-cli
+    ghostty
     google-chrome
     google-cloud-sdk
     google-japanese-ime
+    hammerspoon
     jetbrains-toolbox
     rancher
     slack
