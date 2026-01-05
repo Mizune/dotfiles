@@ -55,3 +55,6 @@ keybind = cmd+shift+e=equalize_splits
 
 # タブタイトルを変更
 keybind = cmd+r=prompt_surface_title
+
+# Shift+Enter を通常の改行として送信（Claude Code対応）
+keybind = shift+enter=text:\n

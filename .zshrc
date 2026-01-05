@@ -63,6 +63,9 @@ SPROMPT="correct: $RED%R$DEFAULT => $GREEN%r$DEFAULT ? [Y/N/A/E]"
 
 bindkey -v
 
+# Ghostty CSI u モードのキーバインド
+bindkey '^[[27;2;13~' self-insert  # Shift+Enter で改行挿入
+
 
 alias -s py=python
 
